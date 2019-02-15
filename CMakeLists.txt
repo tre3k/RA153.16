@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 
-project(FourChannelAdapter)
+project(RA153.16)
 
 set(CMAKE_CXX_STANDARD 14)
 
@@ -17,13 +17,21 @@ find_library(LOG4TANGO_LIB log4tango)
 find_library(ZMQ_LIB zmq)
 find_library(BOOST_SYSTEM_LIB boost_system)
 
-set(CMAKE_CXX_FLAGS -w)
+set(CMAKE_CXX_STANDARD 11)
 
-add_executable(RA153.16 main.cpp
-                         RA153_16.cpp RA153_16.h
-                         RA153_16Class.cpp RA153_16Class.h)
+#set(CMAKE_CXX_FLAGS -w)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 
-target_link_libraries(RA153.16 ${TANGO_LIB}
+
+add_executable(RA153.16
+        main.cpp
+        ClassFactory.cpp
+        RA153_16.cpp RA153_16.h
+        RA153_16Class.cpp RA153_16Class.h
+        SerialPort.cpp SerialPort.h)
+
+target_link_libraries(RA153.16
+        ${TANGO_LIB}
         ${OMNIDYNAMIC4_LIB}
         ${COS4_LIB}
         ${OMNIORB4_LIB}
@@ -31,3 +39,4 @@ target_link_libraries(RA153.16 ${TANGO_LIB}
         ${LOG4TANGO_LIB}
         ${ZMQ_LIB}
         ${BOOST_SYSTEM_LIB})
+

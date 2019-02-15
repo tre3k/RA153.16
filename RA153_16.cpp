@@ -38,6 +38,8 @@
 #include <RA153_16.h>
 #include <RA153_16Class.h>
 
+#include "SerialPort.h"
+
 /*----- PROTECTED REGION END -----*/	//	RA153_16.cpp
 
 /**
