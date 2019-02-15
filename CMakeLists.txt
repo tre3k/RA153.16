@@ -26,9 +26,12 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
 add_executable(RA153.16
         main.cpp
         ClassFactory.cpp
+        RA153_16StateMachine.cpp
         RA153_16.cpp RA153_16.h
         RA153_16Class.cpp RA153_16Class.h
-        SerialPort.cpp SerialPort.h)
+        SerialPort.cpp SerialPort.h
+        Pneumatics.cpp Pneumatics.h
+        ControllerRA153_16.cpp ControllerRA153_16.h)
 
 target_link_libraries(RA153.16
         ${TANGO_LIB}

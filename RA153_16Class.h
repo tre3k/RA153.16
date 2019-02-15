@@ -55,36 +55,6 @@ namespace RA153_16_ns
 //=========================================
 //	Define classes for attributes
 //=========================================
-//	Attribute rPosition class definition
-class rPositionAttrib: public Tango::Attr
-{
-public:
-	rPositionAttrib():Attr("rPosition",
-			Tango::DEV_DOUBLE, Tango::READ_WRITE) {};
-	~rPositionAttrib() {};
-	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-		{(static_cast<RA153_16 *>(dev))->read_rPosition(att);}
-	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
-		{(static_cast<RA153_16 *>(dev))->write_rPosition(att);}
-	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-		{return (static_cast<RA153_16 *>(dev))->is_rPosition_allowed(ty);}
-};
-
-//	Attribute aPosition class definition
-class aPositionAttrib: public Tango::Attr
-{
-public:
-	aPositionAttrib():Attr("aPosition",
-			Tango::DEV_DOUBLE, Tango::READ_WRITE) {};
-	~aPositionAttrib() {};
-	virtual void read(Tango::DeviceImpl *dev,Tango::Attribute &att)
-		{(static_cast<RA153_16 *>(dev))->read_aPosition(att);}
-	virtual void write(Tango::DeviceImpl *dev,Tango::WAttribute &att)
-		{(static_cast<RA153_16 *>(dev))->write_aPosition(att);}
-	virtual bool is_allowed(Tango::DeviceImpl *dev,Tango::AttReqType ty)
-		{return (static_cast<RA153_16 *>(dev))->is_aPosition_allowed(ty);}
-};
-
 //	Attribute Valve class definition
 class ValveAttrib: public Tango::Attr
 {

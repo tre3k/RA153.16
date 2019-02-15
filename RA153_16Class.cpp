@@ -233,10 +233,38 @@ void RA153_16Class::set_default_property()
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
 	prop_name = "Axis";
-	prop_desc = "number of motor, if this not motor (pneumatic) then set value -1";
-	prop_def  = "-1";
+	prop_desc = "number of motor";
+	prop_def  = "0";
 	vect_data.clear();
-	vect_data.push_back("-1");
+	vect_data.push_back("0");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "Valve";
+	prop_desc = "Number of Valve";
+	prop_def  = "0";
+	vect_data.clear();
+	vect_data.push_back("0");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "MotorOrValve";
+	prop_desc = "if this motor, then value need set to true\nif this valve, then value set to false";
+	prop_def  = "true";
+	vect_data.clear();
+	vect_data.push_back("true");
 	if (prop_def.length()>0)
 	{
 		Tango::DbDatum	data(prop_name);
@@ -352,59 +380,11 @@ void RA153_16Class::attribute_factory(vector<Tango::Attr *> &att_list)
 	//	Add your own code
 	
 	/*----- PROTECTED REGION END -----*/	//	RA153_16Class::attribute_factory_before
-	//	Attribute : rPosition
-	rPositionAttrib	*rposition = new rPositionAttrib();
-	Tango::UserDefaultAttrProp	rposition_prop;
-	//	description	not set for rPosition
-	rposition_prop.set_label("relative position");
-	//	unit	not set for rPosition
-	//	standard_unit	not set for rPosition
-	//	display_unit	not set for rPosition
-	//	format	not set for rPosition
-	//	max_value	not set for rPosition
-	//	min_value	not set for rPosition
-	//	max_alarm	not set for rPosition
-	//	min_alarm	not set for rPosition
-	//	max_warning	not set for rPosition
-	//	min_warning	not set for rPosition
-	//	delta_t	not set for rPosition
-	//	delta_val	not set for rPosition
-	
-	rposition->set_default_properties(rposition_prop);
-	rposition->set_polling_period(1000);
-	rposition->set_disp_level(Tango::OPERATOR);
-	//	Not Memorized
-	att_list.push_back(rposition);
-
-	//	Attribute : aPosition
-	aPositionAttrib	*aposition = new aPositionAttrib();
-	Tango::UserDefaultAttrProp	aposition_prop;
-	//	description	not set for aPosition
-	aposition_prop.set_label("absolute position");
-	//	unit	not set for aPosition
-	//	standard_unit	not set for aPosition
-	//	display_unit	not set for aPosition
-	//	format	not set for aPosition
-	//	max_value	not set for aPosition
-	//	min_value	not set for aPosition
-	//	max_alarm	not set for aPosition
-	//	min_alarm	not set for aPosition
-	//	max_warning	not set for aPosition
-	//	min_warning	not set for aPosition
-	//	delta_t	not set for aPosition
-	//	delta_val	not set for aPosition
-	
-	aposition->set_default_properties(aposition_prop);
-	aposition->set_polling_period(1000);
-	aposition->set_disp_level(Tango::OPERATOR);
-	//	Not Memorized
-	att_list.push_back(aposition);
-
 	//	Attribute : Valve
 	ValveAttrib	*valve = new ValveAttrib();
 	Tango::UserDefaultAttrProp	valve_prop;
-	valve_prop.set_description("if propetis Axis is -1, then penumatic valve");
-	valve_prop.set_label("Valve");
+	//	description	not set for Valve
+	//	label	not set for Valve
 	//	unit	not set for Valve
 	//	standard_unit	not set for Valve
 	//	display_unit	not set for Valve

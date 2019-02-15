@@ -56,11 +56,9 @@
 //================================================================
 
 //================================================================
-//  Attributes managed are:
+//  Attributes managed is:
 //================================================================
-//  rPosition  |  Tango::DevDouble	Scalar
-//  aPosition  |  Tango::DevDouble	Scalar
-//  Valve      |  Tango::DevBoolean	Scalar
+//  Valve  |  Tango::DevBoolean	Scalar
 //================================================================
 
 namespace RA153_16_ns
@@ -119,8 +117,6 @@ void RA153_16::delete_device()
 	//	Delete device allocated objects
 	
 	/*----- PROTECTED REGION END -----*/	//	RA153_16::delete_device
-	delete[] attr_rPosition_read;
-	delete[] attr_aPosition_read;
 	delete[] attr_Valve_read;
 }
 
@@ -143,16 +139,10 @@ void RA153_16::init_device()
 	//	Get the device properties from database
 	get_device_property();
 	
-	attr_rPosition_read = new Tango::DevDouble[1];
-	attr_aPosition_read = new Tango::DevDouble[1];
 	attr_Valve_read = new Tango::DevBoolean[1];
 	/*----- PROTECTED REGION ID(RA153_16::init_device) ENABLED START -----*/
-
-	// initialisate serial port
-	if(SerialPort==NULL){
-		SerialPort = new SP::SerialPort(serailPort.c_str());
-	}
-
+	
+	//	Initialize device
 	
 	/*----- PROTECTED REGION END -----*/	//	RA153_16::init_device
 }
@@ -176,6 +166,8 @@ void RA153_16::get_device_property()
 	Tango::DbData	dev_prop;
 	dev_prop.push_back(Tango::DbDatum("SerailPort"));
 	dev_prop.push_back(Tango::DbDatum("Axis"));
+	dev_prop.push_back(Tango::DbDatum("Valve"));
+	dev_prop.push_back(Tango::DbDatum("MotorOrValve"));
 
 	//	is there at least one property to be read ?
 	if (dev_prop.size()>0)
@@ -211,6 +203,28 @@ void RA153_16::get_device_property()
 		}
 		//	And try to extract Axis value from database
 		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  axis;
+
+		//	Try to initialize Valve from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  valve;
+		else {
+			//	Try to initialize Valve from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  valve;
+		}
+		//	And try to extract Valve value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  valve;
+
+		//	Try to initialize MotorOrValve from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  motorOrValve;
+		else {
+			//	Try to initialize MotorOrValve from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  motorOrValve;
+		}
+		//	And try to extract MotorOrValve value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  motorOrValve;
 
 	}
 
@@ -270,84 +284,8 @@ void RA153_16::write_attr_hardware(TANGO_UNUSED(vector<long> &attr_list))
 
 //--------------------------------------------------------
 /**
- *	Read attribute rPosition related method
- *	Description: 
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void RA153_16::read_rPosition(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "RA153_16::read_rPosition(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(RA153_16::read_rPosition) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_rPosition_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	RA153_16::read_rPosition
-}
-//--------------------------------------------------------
-/**
- *	Write attribute rPosition related method
- *	Description: 
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void RA153_16::write_rPosition(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "RA153_16::write_rPosition(Tango::WAttribute &attr) entering... " << endl;
-	//	Retrieve write value
-	Tango::DevDouble	w_val;
-	attr.get_write_value(w_val);
-	/*----- PROTECTED REGION ID(RA153_16::write_rPosition) ENABLED START -----*/
-	
-	
-	/*----- PROTECTED REGION END -----*/	//	RA153_16::write_rPosition
-}
-//--------------------------------------------------------
-/**
- *	Read attribute aPosition related method
- *	Description: 
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void RA153_16::read_aPosition(Tango::Attribute &attr)
-{
-	DEBUG_STREAM << "RA153_16::read_aPosition(Tango::Attribute &attr) entering... " << endl;
-	/*----- PROTECTED REGION ID(RA153_16::read_aPosition) ENABLED START -----*/
-	//	Set the attribute value
-	attr.set_value(attr_aPosition_read);
-	
-	/*----- PROTECTED REGION END -----*/	//	RA153_16::read_aPosition
-}
-//--------------------------------------------------------
-/**
- *	Write attribute aPosition related method
- *	Description: 
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Scalar
- */
-//--------------------------------------------------------
-void RA153_16::write_aPosition(Tango::WAttribute &attr)
-{
-	DEBUG_STREAM << "RA153_16::write_aPosition(Tango::WAttribute &attr) entering... " << endl;
-	//	Retrieve write value
-	Tango::DevDouble	w_val;
-	attr.get_write_value(w_val);
-	/*----- PROTECTED REGION ID(RA153_16::write_aPosition) ENABLED START -----*/
-	
-	
-	/*----- PROTECTED REGION END -----*/	//	RA153_16::write_aPosition
-}
-//--------------------------------------------------------
-/**
  *	Read attribute Valve related method
- *	Description: if propetis Axis is -1, then penumatic valve
+ *	Description: 
  *
  *	Data type:	Tango::DevBoolean
  *	Attr type:	Scalar
@@ -365,7 +303,7 @@ void RA153_16::read_Valve(Tango::Attribute &attr)
 //--------------------------------------------------------
 /**
  *	Write attribute Valve related method
- *	Description: if propetis Axis is -1, then penumatic valve
+ *	Description: 
  *
  *	Data type:	Tango::DevBoolean
  *	Attr type:	Scalar

@@ -36,8 +36,6 @@
 
 #include <tango.h>
 
-#include "SerialPort.h"
-
 
 /*----- PROTECTED REGION END -----*/	//	RA153_16.h
 
@@ -67,13 +65,16 @@ class RA153_16 : public TANGO_BASE_CLASS
 public:
 	//	SerailPort:	just path to system serial port
 	string	serailPort;
-	//	Axis:	number of motor, if this not motor (pneumatic) then set value -1
+	//	Axis:	number of motor
 	Tango::DevShort	axis;
+	//	Valve:	Number of Valve
+	Tango::DevShort	valve;
+	//	MotorOrValve:	if this motor, then value need set to true
+	//  if this valve, then value set to false
+	Tango::DevBoolean	motorOrValve;
 
 //	Attribute data members
 public:
-	Tango::DevDouble	*attr_rPosition_read;
-	Tango::DevDouble	*attr_aPosition_read;
 	Tango::DevBoolean	*attr_Valve_read;
 
 //	Constructors and destructors
@@ -144,28 +145,8 @@ public:
 	virtual void write_attr_hardware(vector<long> &attr_list);
 
 /**
- *	Attribute rPosition related methods
- *	Description: 
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Scalar
- */
-	virtual void read_rPosition(Tango::Attribute &attr);
-	virtual void write_rPosition(Tango::WAttribute &attr);
-	virtual bool is_rPosition_allowed(Tango::AttReqType type);
-/**
- *	Attribute aPosition related methods
- *	Description: 
- *
- *	Data type:	Tango::DevDouble
- *	Attr type:	Scalar
- */
-	virtual void read_aPosition(Tango::Attribute &attr);
-	virtual void write_aPosition(Tango::WAttribute &attr);
-	virtual bool is_aPosition_allowed(Tango::AttReqType type);
-/**
  *	Attribute Valve related methods
- *	Description: if propetis Axis is -1, then penumatic valve
+ *	Description: 
  *
  *	Data type:	Tango::DevBoolean
  *	Attr type:	Scalar
@@ -200,9 +181,7 @@ public:
 
 /*----- PROTECTED REGION ID(RA153_16::Additional Method prototypes) ENABLED START -----*/
 
-	public:
-	SP::SerialPort *SerialPort;
-
+//	Additional Method prototypes
 
 /*----- PROTECTED REGION END -----*/	//	RA153_16::Additional Method prototypes
 };
