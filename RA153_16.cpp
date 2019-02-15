@@ -56,9 +56,11 @@
 //================================================================
 
 //================================================================
-//  Attributes managed is:
+//  Attributes managed are:
 //================================================================
-//  Valve  |  Tango::DevBoolean	Scalar
+//  Valve      |  Tango::DevBoolean	Scalar
+//  rPosition  |  Tango::DevDouble	Scalar
+//  aPosition  |  Tango::DevDouble	Scalar
 //================================================================
 
 namespace RA153_16_ns
@@ -118,6 +120,8 @@ void RA153_16::delete_device()
 	
 	/*----- PROTECTED REGION END -----*/	//	RA153_16::delete_device
 	delete[] attr_Valve_read;
+	delete[] attr_rPosition_read;
+	delete[] attr_aPosition_read;
 }
 
 //--------------------------------------------------------
@@ -140,6 +144,8 @@ void RA153_16::init_device()
 	get_device_property();
 	
 	attr_Valve_read = new Tango::DevBoolean[1];
+	attr_rPosition_read = new Tango::DevDouble[1];
+	attr_aPosition_read = new Tango::DevDouble[1];
 	/*----- PROTECTED REGION ID(RA153_16::init_device) ENABLED START -----*/
 	
 	//	Initialize device
@@ -316,9 +322,88 @@ void RA153_16::write_Valve(Tango::WAttribute &attr)
 	Tango::DevBoolean	w_val;
 	attr.get_write_value(w_val);
 	/*----- PROTECTED REGION ID(RA153_16::write_Valve) ENABLED START -----*/
-	
+	if(motorOrValve) return;
+
+
+
 	
 	/*----- PROTECTED REGION END -----*/	//	RA153_16::write_Valve
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute rPosition related method
+ *	Description: Reletively position
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void RA153_16::read_rPosition(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "RA153_16::read_rPosition(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(RA153_16::read_rPosition) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_rPosition_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	RA153_16::read_rPosition
+}
+//--------------------------------------------------------
+/**
+ *	Write attribute rPosition related method
+ *	Description: Reletively position
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void RA153_16::write_rPosition(Tango::WAttribute &attr)
+{
+	DEBUG_STREAM << "RA153_16::write_rPosition(Tango::WAttribute &attr) entering... " << endl;
+	//	Retrieve write value
+	Tango::DevDouble	w_val;
+	attr.get_write_value(w_val);
+	/*----- PROTECTED REGION ID(RA153_16::write_rPosition) ENABLED START -----*/
+	
+	
+	/*----- PROTECTED REGION END -----*/	//	RA153_16::write_rPosition
+}
+//--------------------------------------------------------
+/**
+ *	Read attribute aPosition related method
+ *	Description: Absolute position
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void RA153_16::read_aPosition(Tango::Attribute &attr)
+{
+	DEBUG_STREAM << "RA153_16::read_aPosition(Tango::Attribute &attr) entering... " << endl;
+	/*----- PROTECTED REGION ID(RA153_16::read_aPosition) ENABLED START -----*/
+	//	Set the attribute value
+	attr.set_value(attr_aPosition_read);
+	
+	/*----- PROTECTED REGION END -----*/	//	RA153_16::read_aPosition
+}
+//--------------------------------------------------------
+/**
+ *	Write attribute aPosition related method
+ *	Description: Absolute position
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+//--------------------------------------------------------
+void RA153_16::write_aPosition(Tango::WAttribute &attr)
+{
+	DEBUG_STREAM << "RA153_16::write_aPosition(Tango::WAttribute &attr) entering... " << endl;
+	//	Retrieve write value
+	Tango::DevDouble	w_val;
+	attr.get_write_value(w_val);
+	/*----- PROTECTED REGION ID(RA153_16::write_aPosition) ENABLED START -----*/
+	
+	
+	/*----- PROTECTED REGION END -----*/	//	RA153_16::write_aPosition
 }
 
 //--------------------------------------------------------

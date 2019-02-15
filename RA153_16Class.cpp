@@ -404,6 +404,54 @@ void RA153_16Class::attribute_factory(vector<Tango::Attr *> &att_list)
 	//	Not Memorized
 	att_list.push_back(valve);
 
+	//	Attribute : rPosition
+	rPositionAttrib	*rposition = new rPositionAttrib();
+	Tango::UserDefaultAttrProp	rposition_prop;
+	rposition_prop.set_description("Reletively position");
+	rposition_prop.set_label("Reletively position");
+	//	unit	not set for rPosition
+	//	standard_unit	not set for rPosition
+	//	display_unit	not set for rPosition
+	//	format	not set for rPosition
+	//	max_value	not set for rPosition
+	//	min_value	not set for rPosition
+	//	max_alarm	not set for rPosition
+	//	min_alarm	not set for rPosition
+	//	max_warning	not set for rPosition
+	//	min_warning	not set for rPosition
+	//	delta_t	not set for rPosition
+	//	delta_val	not set for rPosition
+	
+	rposition->set_default_properties(rposition_prop);
+	rposition->set_polling_period(1000);
+	rposition->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(rposition);
+
+	//	Attribute : aPosition
+	aPositionAttrib	*aposition = new aPositionAttrib();
+	Tango::UserDefaultAttrProp	aposition_prop;
+	aposition_prop.set_description("Absolute position");
+	aposition_prop.set_label("Absolute position");
+	//	unit	not set for aPosition
+	//	standard_unit	not set for aPosition
+	//	display_unit	not set for aPosition
+	//	format	not set for aPosition
+	//	max_value	not set for aPosition
+	//	min_value	not set for aPosition
+	//	max_alarm	not set for aPosition
+	//	min_alarm	not set for aPosition
+	//	max_warning	not set for aPosition
+	//	min_warning	not set for aPosition
+	//	delta_t	not set for aPosition
+	//	delta_val	not set for aPosition
+	
+	aposition->set_default_properties(aposition_prop);
+	aposition->set_polling_period(1000);
+	aposition->set_disp_level(Tango::OPERATOR);
+	//	Not Memorized
+	att_list.push_back(aposition);
+
 
 	//	Create a list of static attributes
 	create_static_attribute_list(get_class_attr()->get_attr_list());

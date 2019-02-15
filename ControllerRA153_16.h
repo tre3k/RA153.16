@@ -10,11 +10,16 @@
 #include "SerialPort.h"
 
 namespace CTRL_RA_153_16{
-
     class ControllerRA153_16 {
+    private:
+        SP::SerialPort *sp;
+
     public:
-        explicit ControllerRA153_16(void);
+        /* Constructor */
+        explicit ControllerRA153_16(SP::SerialPort *sport);
         ~ControllerRA153_16(void);
+
+    public:
 
         /* struct for send and recv command (please read Documentation)*/
         struct s_command {
@@ -22,9 +27,15 @@ namespace CTRL_RA_153_16{
             char code;
             char data[4];
         };
+
+        /* method for send command */
+        void SendCommand(s_command *cmd,char *recv=NULL,size_t recv_size=0);
+
+        /* method for set frequency */
+        void setFreq(u_int16_t freq);
     };
 
-    typedef ControllerRA153_16::s_command command;
+
 
 }
 

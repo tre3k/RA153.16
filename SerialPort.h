@@ -2,8 +2,8 @@
 // Created by kirill on 15.02.19.
 //
 
-#ifndef SERIALPORT_H
-#define SERIALPORT_H
+#ifndef RA153_16_SERIALPORT_H
+#define RA153_16_SERIALPORT_H
 
 #include <cstdint>
 #include <boost/asio.hpp>

@@ -76,6 +76,8 @@ public:
 //	Attribute data members
 public:
 	Tango::DevBoolean	*attr_Valve_read;
+	Tango::DevDouble	*attr_rPosition_read;
+	Tango::DevDouble	*attr_aPosition_read;
 
 //	Constructors and destructors
 public:
@@ -154,6 +156,26 @@ public:
 	virtual void read_Valve(Tango::Attribute &attr);
 	virtual void write_Valve(Tango::WAttribute &attr);
 	virtual bool is_Valve_allowed(Tango::AttReqType type);
+/**
+ *	Attribute rPosition related methods
+ *	Description: Reletively position
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+	virtual void read_rPosition(Tango::Attribute &attr);
+	virtual void write_rPosition(Tango::WAttribute &attr);
+	virtual bool is_rPosition_allowed(Tango::AttReqType type);
+/**
+ *	Attribute aPosition related methods
+ *	Description: Absolute position
+ *
+ *	Data type:	Tango::DevDouble
+ *	Attr type:	Scalar
+ */
+	virtual void read_aPosition(Tango::Attribute &attr);
+	virtual void write_aPosition(Tango::WAttribute &attr);
+	virtual bool is_aPosition_allowed(Tango::AttReqType type);
 
 
 	//--------------------------------------------------------
