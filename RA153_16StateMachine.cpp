@@ -45,6 +45,66 @@ namespace RA153_16_ns
 //		Attributes Allowed Methods
 //=================================================
 
+//--------------------------------------------------------
+/**
+ *	Method      : RA153_16::is_rPosition_allowed()
+ *	Description : Execution allowed for rPosition attribute
+ */
+//--------------------------------------------------------
+bool RA153_16::is_rPosition_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+	//	Not any excluded states for rPosition attribute in Write access.
+	/*----- PROTECTED REGION ID(RA153_16::rPositionStateAllowed_WRITE) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	RA153_16::rPositionStateAllowed_WRITE
+
+	//	Not any excluded states for rPosition attribute in read access.
+	/*----- PROTECTED REGION ID(RA153_16::rPositionStateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	RA153_16::rPositionStateAllowed_READ
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : RA153_16::is_aPosition_allowed()
+ *	Description : Execution allowed for aPosition attribute
+ */
+//--------------------------------------------------------
+bool RA153_16::is_aPosition_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+	//	Not any excluded states for aPosition attribute in Write access.
+	/*----- PROTECTED REGION ID(RA153_16::aPositionStateAllowed_WRITE) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	RA153_16::aPositionStateAllowed_WRITE
+
+	//	Not any excluded states for aPosition attribute in read access.
+	/*----- PROTECTED REGION ID(RA153_16::aPositionStateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	RA153_16::aPositionStateAllowed_READ
+	return true;
+}
+
+//--------------------------------------------------------
+/**
+ *	Method      : RA153_16::is_Valve_allowed()
+ *	Description : Execution allowed for Valve attribute
+ */
+//--------------------------------------------------------
+bool RA153_16::is_Valve_allowed(TANGO_UNUSED(Tango::AttReqType type))
+{
+	//	Not any excluded states for Valve attribute in Write access.
+	/*----- PROTECTED REGION ID(RA153_16::ValveStateAllowed_WRITE) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	RA153_16::ValveStateAllowed_WRITE
+
+	//	Not any excluded states for Valve attribute in read access.
+	/*----- PROTECTED REGION ID(RA153_16::ValveStateAllowed_READ) ENABLED START -----*/
+	
+	/*----- PROTECTED REGION END -----*/	//	RA153_16::ValveStateAllowed_READ
+	return true;
+}
+
 
 //=================================================
 //		Commands Allowed Methods
