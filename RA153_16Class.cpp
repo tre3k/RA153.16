@@ -247,7 +247,7 @@ void RA153_16Class::set_default_property()
 	else
 		add_wiz_dev_prop(prop_name, prop_desc);
 	prop_name = "Valve";
-	prop_desc = "Number of Valve";
+	prop_desc = "Number of Valve [0..16]";
 	prop_def  = "0";
 	vect_data.clear();
 	vect_data.push_back("0");
@@ -265,6 +265,20 @@ void RA153_16Class::set_default_property()
 	prop_def  = "true";
 	vect_data.clear();
 	vect_data.push_back("true");
+	if (prop_def.length()>0)
+	{
+		Tango::DbDatum	data(prop_name);
+		data << vect_data ;
+		dev_def_prop.push_back(data);
+		add_wiz_dev_prop(prop_name, prop_desc,  prop_def);
+	}
+	else
+		add_wiz_dev_prop(prop_name, prop_desc);
+	prop_name = "DeviceAddr";
+	prop_desc = "3 char addr, such as 081, 086, ..etc";
+	prop_def  = "000";
+	vect_data.clear();
+	vect_data.push_back("000");
 	if (prop_def.length()>0)
 	{
 		Tango::DbDatum	data(prop_name);

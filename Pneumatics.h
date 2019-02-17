@@ -6,18 +6,31 @@
 #define RA153_16_PNEUMATICS_H
 
 #include <cstdint>
+#include <iostream>
 
+#include "ControllerRA153_16.h"
 #include "SerialPort.h"
 
-class Pneumatics {
+#define VALVE_COUNT 16
+
+class Pneumatics : private CTRL_RA_153_16::ControllerRA153_16 {
+private:
+    bool states[VALVE_COUNT];
 public:
-    explicit  Pneumatics();
+    explicit  Pneumatics(SP::SerialPort *sp, std::string addr);
     ~Pneumatics();
 
-    /* function of set frequency (1 kHz?) */
-
+    /* set state (on or off) */
+    void setValve(int number, bool stat);
 
     /* get power state (power ON or power OFF) */
+    bool getState(int number);
+
+private:
+    /* write data to pneumo registers [D0..D16] two bytes, 1 bit - state 1 valve */
+    void setRegister(uint16_t reg);
+    /* read data from registers */
+    uint16_t getRegister(void);
 };
 
 

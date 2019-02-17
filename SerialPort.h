@@ -16,7 +16,7 @@ namespace SP {
         boost::asio::io_service ios;
         boost::asio::serial_port *sp;
 
-        int baud_rate = 9600;           // default speed value
+        unsigned int baud_rate = 9600;           // default speed value
 
     public:
         /* Just contructor, path = /dev/tty* */

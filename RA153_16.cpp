@@ -37,6 +37,7 @@
 
 #include <RA153_16.h>
 #include <RA153_16Class.h>
+#include "SerialPort.h"
 
 /*----- PROTECTED REGION END -----*/	//	RA153_16.cpp
 
@@ -116,7 +117,7 @@ void RA153_16::delete_device()
 	DEBUG_STREAM << "RA153_16::delete_device() " << device_name << endl;
 	/*----- PROTECTED REGION ID(RA153_16::delete_device) ENABLED START -----*/
 	
-	//	Delete device allocated objects
+	delete sp;
 	
 	/*----- PROTECTED REGION END -----*/	//	RA153_16::delete_device
 	delete[] attr_Valve_read;
@@ -147,8 +148,15 @@ void RA153_16::init_device()
 	attr_rPosition_read = new Tango::DevDouble[1];
 	attr_aPosition_read = new Tango::DevDouble[1];
 	/*----- PROTECTED REGION ID(RA153_16::init_device) ENABLED START -----*/
-	
-	//	Initialize device
+
+
+	if(sp==NULL) sp = new SP::SerialPort(serailPort.c_str());
+	/* add realization for pneumatic */
+	if(!motorOrValve) pneumo = new Pneumatics(sp,deviceAddr);
+
+	/* add realization for motion */
+	//if(motorOrValve)
+
 	
 	/*----- PROTECTED REGION END -----*/	//	RA153_16::init_device
 }
@@ -174,6 +182,7 @@ void RA153_16::get_device_property()
 	dev_prop.push_back(Tango::DbDatum("Axis"));
 	dev_prop.push_back(Tango::DbDatum("Valve"));
 	dev_prop.push_back(Tango::DbDatum("MotorOrValve"));
+	dev_prop.push_back(Tango::DbDatum("DeviceAddr"));
 
 	//	is there at least one property to be read ?
 	if (dev_prop.size()>0)
@@ -231,6 +240,17 @@ void RA153_16::get_device_property()
 		}
 		//	And try to extract MotorOrValve value from database
 		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  motorOrValve;
+
+		//	Try to initialize DeviceAddr from class property
+		cl_prop = ds_class->get_class_property(dev_prop[++i].name);
+		if (cl_prop.is_empty()==false)	cl_prop  >>  deviceAddr;
+		else {
+			//	Try to initialize DeviceAddr from default device value
+			def_prop = ds_class->get_default_device_property(dev_prop[i].name);
+			if (def_prop.is_empty()==false)	def_prop  >>  deviceAddr;
+		}
+		//	And try to extract DeviceAddr value from database
+		if (dev_prop[i].is_empty()==false)	dev_prop[i]  >>  deviceAddr;
 
 	}
 
@@ -324,7 +344,7 @@ void RA153_16::write_Valve(Tango::WAttribute &attr)
 	/*----- PROTECTED REGION ID(RA153_16::write_Valve) ENABLED START -----*/
 	if(motorOrValve) return;
 
-
+	// open valve
 
 	
 	/*----- PROTECTED REGION END -----*/	//	RA153_16::write_Valve

@@ -35,6 +35,8 @@
 #define RA153_16_H
 
 #include <tango.h>
+#include "SerialPort.h"
+#include "Pneumatics.h"
 
 
 /*----- PROTECTED REGION END -----*/	//	RA153_16.h
@@ -57,7 +59,10 @@ class RA153_16 : public TANGO_BASE_CLASS
 
 /*----- PROTECTED REGION ID(RA153_16::Data Members) ENABLED START -----*/
 
-//	Add your own data members
+public:
+	SP::SerialPort *sp;
+	Pneumatics *pneumo;
+
 
 /*----- PROTECTED REGION END -----*/	//	RA153_16::Data Members
 
@@ -67,11 +72,13 @@ public:
 	string	serailPort;
 	//	Axis:	number of motor
 	Tango::DevShort	axis;
-	//	Valve:	Number of Valve
+	//	Valve:	Number of Valve [0..16]
 	Tango::DevShort	valve;
 	//	MotorOrValve:	if this motor, then value need set to true
 	//  if this valve, then value set to false
 	Tango::DevBoolean	motorOrValve;
+	//	DeviceAddr:	3 char addr, such as 081, 086, ..etc
+	string	deviceAddr;
 
 //	Attribute data members
 public:
@@ -203,7 +210,7 @@ public:
 
 /*----- PROTECTED REGION ID(RA153_16::Additional Method prototypes) ENABLED START -----*/
 
-//	Additional Method prototypes
+	// methods...
 
 /*----- PROTECTED REGION END -----*/	//	RA153_16::Additional Method prototypes
 };

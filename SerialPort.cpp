@@ -19,7 +19,7 @@ SerialPort::~SerialPort() {
 void SerialPort::readwrite(char *req, char *res, size_t *size_req, size_t *size_res){
     // request, return the number of write bytes
     if(*size_req!=0) *size_req = sp->write_some(boost::asio::buffer(req, *size_req));
-    // responsabal, return the number of write bytes
+    // responsabal, return the number of read bytes
     if(*size_res!=0) *size_res = sp->read_some(boost::asio::buffer(res, *size_res));
 }
 
