@@ -154,6 +154,7 @@ void RA153_16::init_device()
 	/* add realization for pneumatic */
 	if(!motorOrValve) pneumo = new Pneumatics(sp,deviceAddr);
 
+
 	/* add realization for motion */
 	//if(motorOrValve)
 

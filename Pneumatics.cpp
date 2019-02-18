@@ -11,6 +11,14 @@ CTRL_RA_153_16::ControllerRA153_16(sp, addr) {
     }
     setFreq(1000);
     disableFreq();
+
+    uint16_t test = 0x8011;
+
+    setRegister(test);
+    std::cout << "register: " << std::hex << (getRegister()&0xffff) << "\n";
+
+    enableFreq();
+
 }
 
 Pneumatics::~Pneumatics() {
@@ -59,8 +67,9 @@ void Pneumatics::setRegister(uint16_t reg) {
 uint16_t Pneumatics::getRegister() {
     uint16_t retvalue = 0;
     char buffer[4];
+    bzero(buffer,4);
     command_packet.code = 'R';
-    strcpy(command_packet.data,"0123");
+    strcpy(command_packet.data,"0000");
     // Send command and get data to buffer from device
     SendCommand(&command_packet,buffer,4);
     retvalue = (uint16_t)(buffer[0] & 0xff);

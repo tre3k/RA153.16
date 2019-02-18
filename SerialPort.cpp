@@ -17,10 +17,19 @@ SerialPort::~SerialPort() {
 
 /* method for readwrite to controller */
 void SerialPort::readwrite(char *req, char *res, size_t *size_req, size_t *size_res){
+    // just sleep for wait device
+    struct timespec ts;
+    ts.tv_sec = 0;
+    ts.tv_nsec = 200000000;  //200 ms delay
+    nanosleep(&ts,NULL);
     // request, return the number of write bytes
     if(*size_req!=0) *size_req = sp->write_some(boost::asio::buffer(req, *size_req));
     // responsabal, return the number of read bytes
-    if(*size_res!=0) *size_res = sp->read_some(boost::asio::buffer(res, *size_res));
+    char tmp = '\x00';
+    for(int i=0;i<*size_res;i++){
+        if(sp->read_some(boost::asio::buffer(&tmp, 1))<=0) break;
+        res[i] = tmp;
+    }
 }
 
 /* methods for set and get private baud_rate */

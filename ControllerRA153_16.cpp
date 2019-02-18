@@ -16,10 +16,11 @@ ControllerRA153_16::~ControllerRA153_16() {
 }
 
 void ControllerRA153_16::setAddr(std::string DeviceAddress) {
-    unsigned short k = 2;
+    short k = 2;
     for(int i=0;i<3;i++) command_packet.addr[i] = '0';
     /* just clone data from string DeviceAddress to struct */
-    for(ulong i=DeviceAddress.length()-1;i>=0;i--){
+
+    for(long i=DeviceAddress.length()-1;i>=0;i--){
         command_packet.addr[k] = DeviceAddress.c_str()[i];
         k--; if(k<0) break;
     }

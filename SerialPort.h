@@ -6,6 +6,7 @@
 #define RA153_16_SERIALPORT_H
 
 #include <cstdint>
+#include <time.h>
 #include <boost/asio.hpp>
 
 namespace SP {
